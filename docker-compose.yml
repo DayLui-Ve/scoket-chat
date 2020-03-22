@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+  node-js:
+    build: ./docker/node/.
+    container_name: "node-js-back"
+    restart: unless-stopped
+    tty: true
+    volumes: 
+      - ./server:/app/server
+      - ./public:/app/public
+      - ./package.json:/app/package.json
+    ports:
+      - "3000:3000"
+      - "9229:9229"
+    networks:
+      - backend-network
+  
+networks:
+  backend-network:
+    driver: bridge
+
+
+# "docker": "npm install && nodemon --inspect-brk=0.0.0.0 server/index.js"
